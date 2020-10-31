@@ -1,0 +1,28 @@
+.hourly-forecast-heading {
+  text-align: center;
+  text-decoration: underline;
+  font-weight: 600;
+  margin-bottom: var(--small-margin);
+  color: var(--default-secondary-text-color);
+}
+
+.hourly-forecast-container {
+  color: var(--default-secondary-text-color);
+  display: flex;
+  overflow-x: auto;
+  width: 650px;
+  height: 12rem;
+}
+
+.hourly-forecast-sub-container {
+  display: grid;
+  grid-template-columns: 100px;
+  align-items: center;
+  justify-items: center;
+}
+
+.hourly-forecast {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 5px;
+}

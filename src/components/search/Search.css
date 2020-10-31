@@ -1,0 +1,20 @@
+.search-area {
+  display: flex;
+  justify-content: center;
+}
+
+.search-area > input[type='text'] {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  width: 60%;
+  border: none;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 425px) {
+  .search-area > input[type='text'] {
+    font-size: 1rem;
+    width: 70%;
+  }
+}
