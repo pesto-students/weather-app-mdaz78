@@ -1,2 +1,22 @@
-.App {
+.heading {
+  text-align: center;
+  font-size: 50px;
+  /* font-family: 'Dancing Script', cursive; */
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 2rem;
+}
+
+.main-area {
+  margin-top: var(--default-margin);
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 425px) {
+  .heading {
+    font-size: 40px;
+  }
 }

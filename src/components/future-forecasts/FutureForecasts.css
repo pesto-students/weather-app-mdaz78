@@ -1,0 +1,24 @@
+.forecast-heading {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: var(--small-margin);
+}
+
+.forecast-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.hourly-forecast-main,
+.weekly-forecast-main {
+  border: 1px solid var(--default-border-color);
+  padding: 1.1rem;
+  border-radius: var(--default-radius);
+  height: 13rem;
+}
+
+.justify-center {
+  justify-self: center;
+}

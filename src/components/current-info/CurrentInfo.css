@@ -1,0 +1,58 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.city {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--default-secondary-text-color);
+}
+
+.date-time {
+  margin-top: var(--small-margin);
+  color: var(--default-secondary-text-color);
+  text-align: center;
+  font-size: 1rem;
+}
+
+.temperature {
+  width: 65%;
+  margin-top: var(--default-margin);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  grid-gap: 3rem;
+}
+
+.temperature .current-temperature {
+  font-size: 6rem;
+  color: var(--default-secondary-text-color);
+}
+
+.temperature-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.temperature-details .temperature-high,
+.temperature-details .temperature-low {
+  font-size: 1.8rem;
+  color: var(--default-secondary-text-color);
+  align-self: center;
+}
+
+.temperature-details hr {
+  width: 90%;
+}
+
+.weather-details-container {
+  margin-top: var(--default-margin);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1.5rem;
+}
