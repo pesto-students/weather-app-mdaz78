@@ -6,7 +6,7 @@ import FutureForecasts from './components/future-forecasts/FutureForecasts';
 function App() {
   return (
     <>
-      <h1 className='heading'>My Weather</h1>
+      <h1 className='heading'>Weather</h1>
       <Search />
       <main className='main-area'>
         <CurrentInfo />
