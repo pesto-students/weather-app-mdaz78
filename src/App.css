@@ -19,6 +19,12 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .main-area {
+    margin-bottom: 1rem;
+  }
+}
+
 @media (max-width: 425px) {
   .heading {
     font-size: 40px;
