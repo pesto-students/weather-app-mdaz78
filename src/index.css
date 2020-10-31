@@ -470,3 +470,10 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
 }
+
+@media (max-width: 426px) {
+  html,
+  body {
+    font-size: 10px;
+  }
+}

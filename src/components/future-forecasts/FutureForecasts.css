@@ -22,3 +22,16 @@
 .justify-center {
   justify-self: center;
 }
+
+@media (max-width: 1024px) {
+  .forecast-container {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 426px) {
+  .hourly-forecast-main,
+  .weekly-forecast-main {
+    width: 28rem;
+  }
+}

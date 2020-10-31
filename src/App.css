@@ -13,6 +13,13 @@
   grid-template-columns: 1fr 1fr; */
   display: flex;
   justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+@media (max-width: 1024px) {
+  .main-area {
+    margin-bottom: 1rem;
+  }
 }
 
 @media (max-width: 425px) {

@@ -26,3 +26,12 @@
   grid-template-columns: 1fr 2fr;
   grid-gap: 5px;
 }
+
+@media (max-width: 426px) {
+  .hourly-forecast-container {
+    width: 100%;
+  }
+  .hourly-forecast-sub-container {
+    grid-template-columns: 6.5rem;
+  }
+}

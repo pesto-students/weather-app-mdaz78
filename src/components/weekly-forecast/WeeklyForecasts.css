@@ -19,3 +19,12 @@
   grid-template-columns: 1fr 2fr;
   grid-gap: 5px;
 }
+
+@media (max-width: 426px) {
+  .weekly-forecast-container {
+    width: 100%;
+  }
+  .weekly-forecast-sub-container {
+    grid-template-columns: 6.5rem;
+  }
+}
