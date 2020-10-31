@@ -1,7 +1,6 @@
 .heading {
   text-align: center;
-  font-size: 50px;
-  /* font-family: 'Dancing Script', cursive; */
+  font-size: 4rem;
   font-weight: bold;
   text-decoration: underline;
   margin: 2rem;
@@ -9,8 +8,6 @@
 
 .main-area {
   margin-top: var(--default-margin);
-  /* display: grid;
-  grid-template-columns: 1fr 1fr; */
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
@@ -25,5 +22,14 @@
 @media (max-width: 425px) {
   .heading {
     font-size: 40px;
+  }
+
+  .main-area {
+    margin-top: var(--small-margin);
+    margin-bottom: 1rem;
+  }
+
+  .heading {
+    margin: var(--small-margin);
   }
 }

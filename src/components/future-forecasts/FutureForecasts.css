@@ -34,4 +34,8 @@
   .weekly-forecast-main {
     width: 28rem;
   }
+
+  .forecast-container {
+    margin-bottom: var(--default-margin);
+  }
 }
