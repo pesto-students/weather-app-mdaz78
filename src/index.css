@@ -463,10 +463,10 @@ html {
 }
 
 body {
-  margin: 0;
+  background: linear-gradient(#9f8787, #02243c);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background: linear-gradient(#9f8787, #02243c);
-  font-family: 'Open Sans', sans-serif;
   color: var(--default-text-color);
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
 }
