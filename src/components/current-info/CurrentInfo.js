@@ -1,7 +1,7 @@
 import React from 'react';
 import './CurrentInfo.css';
 import WeatherDetails from '../weather-details/WeatherDetails';
-import { getDateFrom } from '../../utils';
+import { getFullDateFrom } from '../../utils';
 
 export default function CurrentInfo({ current, timezone }) {
   console.log(current);
@@ -19,7 +19,7 @@ export default function CurrentInfo({ current, timezone }) {
   return (
     <div className='main'>
       <h3 className='city'>{location}</h3>
-      <p className='date-time'>{getDateFrom(dateTime, timezone)}</p>
+      <p className='date-time'>{getFullDateFrom(dateTime, timezone)}</p>
       <section className='temperature'>
         <section className='current-temperature'>
           {current_temperature}°{`C`}
@@ -40,7 +40,7 @@ export default function CurrentInfo({ current, timezone }) {
         <WeatherDetails
           icon='fas fa-wind'
           title='Wind Speed'
-          value={`${wind_speed} m/s`}
+          value={`${wind_speed || '--'} m/s`}
         />
         <WeatherDetails
           icon='fas fa-cloud'
