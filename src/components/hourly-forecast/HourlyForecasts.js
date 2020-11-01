@@ -4,10 +4,10 @@ import { getTimeFrom } from '../../utils';
 
 export default function HourlyForecasts({ stats, timezone }) {
   const componentToRender = stats.map(
-    ({ clouds, dt, humidity, pressure, wind_speed, temp }) => {
+    ({ clouds, dt, humidity, pressure, wind_speed, temp }, index) => {
       const time = getTimeFrom(dt, timezone);
       return (
-        <div className='hourly-forecast-sub-container'>
+        <div className='hourly-forecast-sub-container' key={index}>
           <h4>{time}</h4>
           <div className='hourly-forecast'>
             <i className='fas fa-temperature-low' />

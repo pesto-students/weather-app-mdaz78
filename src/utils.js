@@ -20,4 +20,14 @@ function getTimeFrom(timeInS, timezone) {
   }
 }
 
-export { getFullDateFrom, getTimeFrom };
+function getDateFrom(timeInS, timezone) {
+  if (timezone === 'Asia/Kolkata') {
+    return moment(timeInS * 1000).format('DD/MM');
+  } else {
+    return moment(timeInS * 1000)
+      .tz(timezone)
+      .format('DD/MM');
+  }
+}
+
+export { getFullDateFrom, getTimeFrom, getDateFrom };
