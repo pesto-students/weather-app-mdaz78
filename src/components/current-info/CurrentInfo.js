@@ -1,32 +1,57 @@
 import React from 'react';
 import './CurrentInfo.css';
 import WeatherDetails from '../weather-details/WeatherDetails';
+import { getDateFrom } from '../../utils';
 
-export default function CurrentInfo() {
+export default function CurrentInfo({ current, timezone }) {
+  console.log(current);
+  const {
+    dt: dateTime,
+    temp: current_temperature,
+    pressure,
+    wind_speed,
+    clouds,
+    humidity,
+  } = current;
+  console.log(dateTime);
+  const location = localStorage.getItem('location');
+
   return (
     <div className='main'>
-      <h3 className='city'>Kolkata, West Bengal, India</h3>
-      <p className='date-time'>26 October 2020 06:27 AM</p>
+      <h3 className='city'>{location}</h3>
+      <p className='date-time'>{getDateFrom(dateTime, timezone)}</p>
       <section className='temperature'>
         <section className='current-temperature'>
-          {24}°{`C`}
+          {current_temperature}°{`C`}
         </section>
-        <section className='temperature-details'>
+        {/* <section className='temperature-details'>
           <div className='temperature-high'>{32}°</div>
           <hr />
           <div className='temperature-low'>{18}°</div>
-        </section>
+        </section> */}
       </section>
 
       <section className='weather-details-container'>
         <WeatherDetails
           icon='fas fa-water'
           title='Atmospheric Pressure'
-          value='1000 hPa'
+          value={`${pressure} hPa`}
         />
-        <WeatherDetails icon='fas fa-wind' title='Wind Speed' value='2 m/s' />
-        <WeatherDetails icon='fas fa-cloud-rain' title='Rain' value='10 mm' />
-        <WeatherDetails icon='fas fa-tint' title='Humidity' value='100%' />
+        <WeatherDetails
+          icon='fas fa-wind'
+          title='Wind Speed'
+          value={`${wind_speed} m/s`}
+        />
+        <WeatherDetails
+          icon='fas fa-cloud'
+          title='Clouds'
+          value={`${clouds || '--'} %`}
+        />
+        <WeatherDetails
+          icon='fas fa-tint'
+          title='Humidity'
+          value={`${humidity || '--'}%`}
+        />
       </section>
     </div>
   );
