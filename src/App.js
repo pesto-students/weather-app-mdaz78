@@ -10,10 +10,11 @@ import axios from 'axios';
 function App() {
   const [loading, setLoading] = useState(true);
   const [geolocationError, setGeoLocationError] = useState(false);
-  const [response, setResponse] = useState(null);
+  const [weatherInformation, setWeatherInformation] = useState(null);
   const [temperatureUnit, setTemperatureUnit] = useState('metric');
 
-  const APP_ID = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+  const OPEN_WEATHER_APP_ID = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+  const LOCATION_IQ_KEY = process.env.REACT_APP_LOCATION_IQ_KEY;
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -21,11 +22,25 @@ function App() {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        const apiResponse = await axios.get(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={minutely}&units=${temperatureUnit}&appid=${APP_ID}`,
+        const openWeatherResponse = axios.get(
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={minutely}&units=${temperatureUnit}&appid=${OPEN_WEATHER_APP_ID}`,
         );
 
-        setResponse(apiResponse.data);
+        const locationResponse = axios.get(
+          `https://us1.locationiq.com/v1/reverse.php?key=${LOCATION_IQ_KEY}&format=json&lat=${lat}&lon=${lon}`,
+        );
+
+        const weatherInformation = await openWeatherResponse;
+        const locationInformation = await locationResponse;
+
+        const locationData = locationInformation.data.address;
+        const location = `${locationData.city}, ${locationData.state}, ${locationData.country}`;
+
+        localStorage.setItem('location', location);
+        localStorage.setItem('lat', lat);
+        localStorage.setItem('lon', lon);
+
+        setWeatherInformation(weatherInformation.data);
         setLoading(false);
       },
       () => {
@@ -37,15 +52,14 @@ function App() {
 
   let componentsToRender;
 
-  if (!loading) {
-    console.log(response);
+  if (!loading && !geolocationError) {
     componentsToRender = (
       <>
         <main className='main-area'>
-          <CurrentInfo current={response.current} />
+          <CurrentInfo current={weatherInformation.current} />
           <FutureForecasts
-            dailyState={response.daily}
-            hourlyStats={response.hourly}
+            dailyState={weatherInformation.daily}
+            hourlyStats={weatherInformation.hourly}
           />
         </main>
       </>
