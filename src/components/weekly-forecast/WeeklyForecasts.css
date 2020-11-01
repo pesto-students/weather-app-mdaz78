@@ -9,15 +9,24 @@
 
 .weekly-forecast-sub-container {
   display: grid;
-  grid-template-columns: 100px;
+  grid-template-columns: 140px;
   align-items: center;
   justify-items: center;
 }
 
+.weekly-forecast-sub-container > h4 {
+  font-weight: 600;
+}
+
 .weekly-forecast {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 5px;
+  grid-template-columns: 2rem 5rem;
+  gap: 0.2rem;
+  justify-items: center;
+}
+
+.weekly-forecast > i {
+  justify-self: end;
 }
 
 @media (max-width: 426px) {
@@ -25,6 +34,6 @@
     width: 100%;
   }
   .weekly-forecast-sub-container {
-    grid-template-columns: 6.5rem;
+    grid-template-columns: 8rem;
   }
 }
