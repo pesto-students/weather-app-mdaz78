@@ -61,7 +61,7 @@ function App() {
             timezone={weatherInformation.timezone}
           />
           <FutureForecasts
-            dailyState={weatherInformation.daily}
+            dailyStats={weatherInformation.daily}
             hourlyStats={weatherInformation.hourly}
             timezone={weatherInformation.timezone}
           />
