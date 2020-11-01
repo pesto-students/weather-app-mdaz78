@@ -1,13 +1,23 @@
 import moment from 'moment-timezone/moment-timezone';
 
-function getDateFrom(timeInMs, timezone) {
+function getFullDateFrom(timeInS, timezone) {
   if (timezone === 'Asia/Kolkata') {
-    return moment(timeInMs * 1000).format('LLL');
+    return moment(timeInS * 1000).format('LLL');
   } else {
-    return moment(timeInMs * 1000)
+    return moment(timeInS * 1000)
       .tz(timezone)
       .format('LLL');
   }
 }
 
-export { getDateFrom };
+function getTimeFrom(timeInS, timezone) {
+  if (timezone === 'Asia/Kolkata') {
+    return moment(timeInS * 1000).format('LT');
+  } else {
+    return moment(timeInS * 1000)
+      .tz(timezone)
+      .format('LT');
+  }
+}
+
+export { getFullDateFrom, getTimeFrom };
