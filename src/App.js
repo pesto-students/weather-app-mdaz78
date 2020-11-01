@@ -56,10 +56,14 @@ function App() {
     componentsToRender = (
       <>
         <main className='main-area'>
-          <CurrentInfo current={weatherInformation.current} />
+          <CurrentInfo
+            current={weatherInformation.current}
+            timezone={weatherInformation.timezone}
+          />
           <FutureForecasts
             dailyState={weatherInformation.daily}
             hourlyStats={weatherInformation.hourly}
+            timezone={weatherInformation.timezone}
           />
         </main>
       </>

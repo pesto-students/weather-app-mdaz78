@@ -19,12 +19,15 @@
 }
 
 .temperature {
-  width: 65%;
+  /* width: 65%;
   margin-top: var(--default-margin);
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
-  grid-gap: 3rem;
+  grid-gap: 3rem; */
+  margin-top: var(--default-margin);
+  display: flex;
+  justify-content: center;
 }
 
 .temperature .current-temperature {
