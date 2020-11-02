@@ -3,8 +3,7 @@ import './CurrentInfo.css';
 import WeatherDetails from '../weather-details/WeatherDetails';
 import { getFullDateFrom } from '../../utils';
 
-export default function CurrentInfo({ current, timezone }) {
-  console.log(current);
+export default function CurrentInfo({ current, timezone, location }) {
   const {
     dt: dateTime,
     temp: current_temperature,
@@ -13,8 +12,6 @@ export default function CurrentInfo({ current, timezone }) {
     clouds,
     humidity,
   } = current;
-  console.log(dateTime);
-  const location = localStorage.getItem('location');
 
   return (
     <div className='main'>

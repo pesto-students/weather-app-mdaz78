@@ -5,7 +5,6 @@ import './WeeklyForecasts.css';
 export default function WeeklyForecast({ stats, timezone }) {
   const componentToRender = stats.map(
     ({ clouds, dt, humidity, pressure, wind_speed, temp }, index) => {
-      console.log(temp);
       const time = getDateFrom(dt, timezone);
 
       if (index === 0) {
