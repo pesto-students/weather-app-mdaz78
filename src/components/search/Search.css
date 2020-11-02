@@ -16,10 +16,24 @@
 }
 
 .dropdown-container {
+  margin-top: -1rem;
   position: absolute;
-  left: 0;
   z-index: 10;
-  width: inherit;
+  left: 19%;
+  border-radius: 5px;
+  width: 62%;
+  border: none;
+  font-size: 1.5rem;
+  background-color: var(--default-secondary-text-color);
+  height: 20rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.dropdown-items {
+  padding: 1rem;
+  border: 1px solid var(--default-border-color);
+  cursor: pointer;
 }
 
 @media (max-width: 425px) {

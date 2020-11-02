@@ -38,22 +38,24 @@ export default function Search({ updateCoords }) {
     cities.map(({ city, latitude, longitude }, index) => {
       return (
         <>
-          <h3
+          <div
+            className='dropdown-items'
             key={index}
             onClick={() => {
               updateCoords({ latitude, longitude });
               setSearchTerm('');
+              setCities(null);
             }}
           >
             {city}
-          </h3>
+          </div>
         </>
       );
     });
 
   return (
     <>
-      <div className='search-area'>
+      <div className='search-area dropdown'>
         <input
           type='text'
           value={searchTerm}
@@ -63,8 +65,8 @@ export default function Search({ updateCoords }) {
           }}
           list='city-list'
         />
-        {cities && <div className='dropdown-container'>{listOfOptions()}</div>}
       </div>
+      {cities && <div className='dropdown-container'>{listOfOptions()}</div>}
     </>
   );
 }
