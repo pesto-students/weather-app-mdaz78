@@ -3,7 +3,7 @@ import './CurrentInfo.css';
 import WeatherDetails from '../weather-details/WeatherDetails';
 import { getFullDateFrom } from '../../utils';
 
-export default function CurrentInfo({ current, timezone, location }) {
+export default function CurrentInfo({ current, timezone, location, refresh }) {
   const {
     dt: dateTime,
     temp: current_temperature,
@@ -27,7 +27,11 @@ export default function CurrentInfo({ current, timezone, location }) {
           <div className='temperature-low'>{18}°</div>
         </section> */}
       </section>
-
+      <section className='buttons'>
+        <button className='refresh-data' onClick={() => refresh()}>
+          Refresh Forecast
+        </button>
+      </section>
       <section className='weather-details-container'>
         <WeatherDetails
           icon='fas fa-water'

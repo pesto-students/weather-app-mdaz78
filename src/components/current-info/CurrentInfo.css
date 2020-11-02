@@ -53,8 +53,24 @@
   width: 90%;
 }
 
+.buttons {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  width: 100%;
+}
+
+.buttons > button {
+  color: var(--default-secondary-text-color);
+  background-color: #303c70;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--default-radius);
+}
+
 .weather-details-container {
-  margin-top: var(--default-margin);
+  margin-top: var(--small-margin);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1.5rem;

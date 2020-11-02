@@ -41,6 +41,10 @@ function App() {
     );
   };
 
+  function refresh() {
+    fetchDataAndLocation();
+  }
+
   const fetchDataAndLocation = async () => {
     setLoading(true);
     const { latitude, longitude } = coords;
@@ -79,6 +83,7 @@ function App() {
             current={weatherInformation.current}
             timezone={weatherInformation.timezone}
             location={location}
+            refresh={refresh}
           />
           <FutureForecasts
             dailyStats={weatherInformation.daily}
