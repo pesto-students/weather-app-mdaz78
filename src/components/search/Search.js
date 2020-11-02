@@ -6,25 +6,33 @@ import axios from 'axios';
 export default function Search({ updateCoords }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [cities, setCities] = useState(null);
+  const [error, setError] = useState(false);
 
   const getCityList = async (query) => {
+    setError(false);
     const url = `https://api.locationiq.com/v1/autocomplete.php?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&q=${query}`;
-    const result = await axios.get(url);
-    const latAndLonMap = result.data.map(({ lat, lon, address }) => {
-      const cityName = address.name || address.city || '';
-      const state = address.state || '';
-      const country = address.country || '';
-      return {
-        latitude: lat,
-        longitude: lon,
-        city: `${cityName}, ${state}${state.length > 0 ? ', ' : ''}${country}`,
-      };
-    });
-    setCities(latAndLonMap);
+    try {
+      const result = await axios.get(url);
+      const latAndLonMap = result.data.map(({ lat, lon, address }) => {
+        const cityName = address.name || address.city || '';
+        const state = address.state || '';
+        const country = address.country || '';
+        return {
+          latitude: lat,
+          longitude: lon,
+          city: `${cityName}, ${state}${
+            state.length > 0 ? ', ' : ''
+          }${country}`,
+        };
+      });
+      setCities(latAndLonMap);
+    } catch (e) {
+      setError(true);
+    }
   };
 
   const makeRequest = useCallback(
-    debounce((query) => getCityList(query), 500),
+    debounce((query) => getCityList(query), 300),
     [],
   );
 
@@ -56,6 +64,9 @@ export default function Search({ updateCoords }) {
   return (
     <>
       <div className='search-area dropdown'>
+        <div className='fixed-height red'>
+          {error && 'Please check your spelling and try again!'}
+        </div>
         <input
           type='text'
           value={searchTerm}
