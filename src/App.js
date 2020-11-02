@@ -12,43 +12,62 @@ function App() {
   const [geolocationError, setGeoLocationError] = useState(false);
   const [weatherInformation, setWeatherInformation] = useState(null);
   const [temperatureUnit, setTemperatureUnit] = useState('metric');
+  const [coords, setCoords] = useState(null);
+  const [location, setLocation] = useState('');
 
   const OPEN_WEATHER_APP_ID = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
   const LOCATION_IQ_KEY = process.env.REACT_APP_LOCATION_IQ_KEY;
 
   useEffect(() => {
+    if (coords) {
+      fetchDataAndLocation();
+    } else {
+      getCoords();
+    }
+  }, [coords, location, temperatureUnit, geolocationError]);
+
+  const getCoords = () => {
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
+      (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        const openWeatherResponse = axios.get(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={minutely}&units=${temperatureUnit}&appid=${OPEN_WEATHER_APP_ID}`,
-        );
-
-        const locationResponse = axios.get(
-          `https://us1.locationiq.com/v1/reverse.php?key=${LOCATION_IQ_KEY}&format=json&lat=${lat}&lon=${lon}`,
-        );
-
-        const weatherInformation = await openWeatherResponse;
-        const locationInformation = await locationResponse;
-
-        const locationData = locationInformation.data.address;
-        const location = `${locationData.city}, ${locationData.state}, ${locationData.country}`;
-
-        localStorage.setItem('location', location);
-        localStorage.setItem('lat', lat);
-        localStorage.setItem('lon', lon);
-
-        setWeatherInformation(weatherInformation.data);
-        setLoading(false);
+        setCoords({
+          latitude: lat,
+          longitude: lon,
+        });
       },
-      () => {
-        setGeoLocationError(true);
-        setLoading(false);
-      },
+      () => setGeoLocationError(true),
     );
-  }, []);
+  };
+
+  const fetchDataAndLocation = async () => {
+    setLoading(true);
+    const { latitude, longitude } = coords;
+    const openWeatherResponse = axios.get(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={minutely}&units=${temperatureUnit}&appid=${OPEN_WEATHER_APP_ID}`,
+    );
+
+    const locationResponse = axios.get(
+      `https://us1.locationiq.com/v1/reverse.php?key=${LOCATION_IQ_KEY}&format=json&lat=${latitude}&lon=${longitude}`,
+    );
+
+    const weatherInformation = await openWeatherResponse;
+    const locationInformation = await locationResponse;
+    const locationData = locationInformation.data.address;
+    const location = `${
+      locationData.name || locationData.city || locationData.suburb
+    }, ${locationData.state}, ${locationData.country}`;
+
+    setLocation(location);
+    setWeatherInformation(weatherInformation.data);
+    setLoading(false);
+    setGeoLocationError(false);
+  };
+
+  const updateCoords = (coords) => {
+    setCoords(coords);
+  };
 
   let componentsToRender;
 
@@ -59,6 +78,7 @@ function App() {
           <CurrentInfo
             current={weatherInformation.current}
             timezone={weatherInformation.timezone}
+            location={location}
           />
           <FutureForecasts
             dailyStats={weatherInformation.daily}
@@ -75,7 +95,7 @@ function App() {
   return (
     <>
       <h1 className='heading'>Weather</h1>
-      <Search />
+      <Search updateCoords={updateCoords} />
       {geolocationError ? (
         <Error message='Access to Location denied. Please use the search bar to look up the weather of the city you want.' />
       ) : (
