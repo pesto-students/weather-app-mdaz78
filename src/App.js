@@ -64,11 +64,11 @@ function App() {
     const country = locationData.country;
 
     if (city) {
-      city = city + '  ,';
+      city = city + ', ';
     }
 
     if (state) {
-      state = state + ' , ';
+      state = state + ', ';
     }
 
     setLocation(`${city || ''}${state || ''}${country || ''}`);
