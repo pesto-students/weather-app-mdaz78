@@ -24,7 +24,7 @@ export default function Search({ updateCoords }) {
   };
 
   const makeRequest = useCallback(
-    debounce((query) => getCityList(query), 500),
+    debounce((query) => getCityList(query), 300),
     [],
   );
 
