@@ -41,6 +41,10 @@ function App() {
     );
   };
 
+  function refresh() {
+    fetchDataAndLocation();
+  }
+
   const fetchDataAndLocation = async () => {
     setLoading(true);
     const { latitude, longitude } = coords;
@@ -55,11 +59,20 @@ function App() {
     const weatherInformation = await openWeatherResponse;
     const locationInformation = await locationResponse;
     const locationData = locationInformation.data.address;
-    const location = `${
-      locationData.name || locationData.city || locationData.suburb
-    }, ${locationData.state}, ${locationData.country}`;
+    let city = locationData.name || locationData.city || locationData.suburb;
+    let state = locationData.state;
+    const country = locationData.country;
 
-    setLocation(location);
+    if (city) {
+      city = city + '  ,';
+    }
+
+    if (state) {
+      state = state + ' , ';
+    }
+
+    setLocation(`${city || ''}${state || ''}${country || ''}`);
+
     setWeatherInformation(weatherInformation.data);
     setLoading(false);
     setGeoLocationError(false);
@@ -79,6 +92,7 @@ function App() {
             current={weatherInformation.current}
             timezone={weatherInformation.timezone}
             location={location}
+            refresh={refresh}
           />
           <FutureForecasts
             dailyStats={weatherInformation.daily}
