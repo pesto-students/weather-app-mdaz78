@@ -36,6 +36,14 @@
   cursor: pointer;
 }
 
+.fixed-height {
+  height: 1rem;
+}
+
+.red {
+  color: var(--default-error-color);
+}
+
 @media (max-width: 425px) {
   .search-area > input[type='text'] {
     font-size: 2rem;

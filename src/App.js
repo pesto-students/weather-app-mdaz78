@@ -10,6 +10,7 @@ import axios from 'axios';
 function App() {
   const [loading, setLoading] = useState(true);
   const [geolocationError, setGeoLocationError] = useState(false);
+  const [error, setError] = useState(false);
   const [weatherInformation, setWeatherInformation] = useState(null);
   const [temperatureUnit, setTemperatureUnit] = useState('metric');
   const [coords, setCoords] = useState(null);
@@ -56,26 +57,31 @@ function App() {
       `https://us1.locationiq.com/v1/reverse.php?key=${LOCATION_IQ_KEY}&format=json&lat=${latitude}&lon=${longitude}`,
     );
 
-    const weatherInformation = await openWeatherResponse;
-    const locationInformation = await locationResponse;
-    const locationData = locationInformation.data.address;
-    let city = locationData.name || locationData.city || locationData.suburb;
-    let state = locationData.state;
-    const country = locationData.country;
+    try {
+      const weatherInformation = await openWeatherResponse;
+      const locationInformation = await locationResponse;
+      const locationData = locationInformation.data.address;
+      let city = locationData.name || locationData.city || locationData.suburb;
+      let state = locationData.state;
+      const country = locationData.country;
 
-    if (city) {
-      city = city + ', ';
+      if (city) {
+        city = city + ', ';
+      }
+
+      if (state) {
+        state = state + ', ';
+      }
+
+      setLocation(`${city || ''}${state || ''}${country || ''}`);
+
+      setWeatherInformation(weatherInformation.data);
+      setError(false);
+      setLoading(false);
+      setGeoLocationError(false);
+    } catch (e) {
+      setError(true);
     }
-
-    if (state) {
-      state = state + ', ';
-    }
-
-    setLocation(`${city || ''}${state || ''}${country || ''}`);
-
-    setWeatherInformation(weatherInformation.data);
-    setLoading(false);
-    setGeoLocationError(false);
   };
 
   const updateCoords = (coords) => {
@@ -84,7 +90,7 @@ function App() {
 
   let componentsToRender;
 
-  if (!loading && !geolocationError) {
+  if (!loading && !geolocationError && !error) {
     componentsToRender = (
       <>
         <main className='main-area'>
@@ -106,12 +112,20 @@ function App() {
     componentsToRender = <Loader />;
   }
 
+  function getMessage() {
+    if (geolocationError) {
+      return 'Access to Location denied. Please use the search bar to look up the weather of the city you want.';
+    } else {
+      return 'There was an error getting that place, can you please try again later!';
+    }
+  }
+
   return (
     <>
       <h1 className='heading'>Weather</h1>
       <Search updateCoords={updateCoords} />
-      {geolocationError ? (
-        <Error message='Access to Location denied. Please use the search bar to look up the weather of the city you want.' />
+      {geolocationError || error ? (
+        <Error message={getMessage()} />
       ) : (
         componentsToRender
       )}
