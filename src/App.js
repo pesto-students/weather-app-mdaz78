@@ -62,6 +62,7 @@ function App() {
     setLocation(location);
     setWeatherInformation(weatherInformation.data);
     setLoading(false);
+    setGeoLocationError(false);
   };
 
   const updateCoords = (coords) => {

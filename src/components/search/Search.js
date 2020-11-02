@@ -66,7 +66,9 @@ export default function Search({ updateCoords }) {
           list='city-list'
         />
       </div>
-      {cities && <div className='dropdown-container'>{listOfOptions()}</div>}
+      {cities && searchTerm.length > 0 && (
+        <div className='dropdown-container'>{listOfOptions()}</div>
+      )}
     </>
   );
 }
