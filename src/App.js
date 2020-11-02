@@ -59,11 +59,20 @@ function App() {
     const weatherInformation = await openWeatherResponse;
     const locationInformation = await locationResponse;
     const locationData = locationInformation.data.address;
-    const location = `${
-      locationData.name || locationData.city || locationData.suburb
-    }, ${locationData.state}, ${locationData.country}`;
+    let city = locationData.name || locationData.city || locationData.suburb;
+    let state = locationData.state;
+    const country = locationData.country;
 
-    setLocation(location);
+    if (city) {
+      city = city + '  ,';
+    }
+
+    if (state) {
+      state = state + ' , ';
+    }
+
+    setLocation(`${city || ''}${state || ''}${country || ''}`);
+
     setWeatherInformation(weatherInformation.data);
     setLoading(false);
     setGeoLocationError(false);
