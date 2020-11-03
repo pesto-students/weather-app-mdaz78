@@ -28,18 +28,22 @@ function App() {
   }, [coords, location, temperatureUnit, geolocationError]);
 
   const getCoords = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
 
-        setCoords({
-          latitude: lat,
-          longitude: lon,
-        });
-      },
-      () => setGeoLocationError(true),
-    );
+          setCoords({
+            latitude: lat,
+            longitude: lon,
+          });
+        },
+        () => setGeoLocationError(true),
+      );
+    } else {
+      setGeoLocationError(true);
+    }
   };
 
   function refresh() {
@@ -114,7 +118,7 @@ function App() {
 
   function getMessage() {
     if (geolocationError) {
-      return 'Access to Location denied. Please use the search bar to look up the weather of the city you want.';
+      return 'Your browser does not support Geolocation or Acees to location has been denied. Please use the search bar to look up the weather of the city you want.';
     } else {
       return 'There was an error getting that place, can you please try again later!';
     }
