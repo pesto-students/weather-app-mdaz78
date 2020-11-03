@@ -32,7 +32,7 @@ export default function Search({ updateCoords }) {
   };
 
   const makeRequest = useCallback(
-    debounce((query) => getCityList(query), 300),
+    debounce((query) => getCityList(query), 250),
     [],
   );
 
@@ -70,7 +70,7 @@ export default function Search({ updateCoords }) {
         <input
           type='text'
           value={searchTerm}
-          placeholder='Enter your city name'
+          placeholder='Enter a city name'
           onChange={({ target: { value } }) => {
             setSearchTerm(value);
           }}
